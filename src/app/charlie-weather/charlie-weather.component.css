@@ -1,7 +1,7 @@
 .content {
-  background-image: url('https://bing.com//th?id=OHR.LittleBlueHeron_ROW0872052595_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp');
   background-size: cover;
   height: 100vh;
+  width: 100vw;
 }
 
 .main-content {

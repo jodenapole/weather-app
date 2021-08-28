@@ -35,9 +35,9 @@ export class CharlieWeatherComponent implements OnInit {
 	}
 
 	ngOnInit(): void{
-		// this.getBackgroundImageContent()
 		this.cityInputSubscription()
 		this.getInitLocation()
+		this.getBackgroundImageContent()
 	}
 
 	cityInputSubscription() {
@@ -53,14 +53,11 @@ export class CharlieWeatherComponent implements OnInit {
 
 	async getBackgroundImageContent() {
 		try {
-			// let corsAccess = 'https://cors-anywhere.herokuapp.com'	
-			const response = await fetch(`/https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=pt-BR`)
-			
+			let corsAccess = 'https://thingproxy.freeboard.io/fetch/'
+			const response = await fetch(`${corsAccess}https://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=pt-BR`)
 			
 			const data = await response.json()
-			console.log('data bing: ', data)
-			// this.showBackgroundImage = true
-			// this.showBackgroundImage = `url('https://www.bing.com/${data.images[0].url}')`
+			this.showBackgroundImage = `url('https://www.bing.com/${data.images[0].url}')`
 		} catch (error) {
 			console.log(error)
 		}
@@ -80,7 +77,6 @@ export class CharlieWeatherComponent implements OnInit {
 	}
 
 	async getWeather(lat: number, lon: number) {
-		// http://openweathermap.org/img/wn/10d@2x.png
 		let apikey = '7ba73e0eb8efe773ed08bfd0627f07b8'
 		try {
 			const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,alerts&units=metric&lang=pt_br&appid=${apikey}`)
