@@ -80,7 +80,7 @@
   display: grid;
   grid-template-columns: 4fr 3fr;
   opacity: 0.9;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .today p,
@@ -88,7 +88,7 @@
 .after-tomorrow p {
   color: white;
   font-weight: 500;
-  font-size: 32pt;
+  font-size: 1.8rem;
 }
 
 .today {
@@ -113,21 +113,100 @@
 
 .degrees {
   color: white;
-  font-size: 36pt;
+  font-size: 2rem;
   font-weight: 500;
-  margin-bottom: 3rem;
+  margin-bottom: 1.8rem;
   cursor: pointer;
 }
 
 .weather-main {
   color: white;
-  font-size: 36pt;
+  font-size: 2rem;
   font-weight: 500;
   margin-bottom: 2rem;
 }
 
+.weather-icon img {
+  width: 85%;
+}
+
 .weather-desc div {
   color: white;
-  font-size: 28pt;
-  font-weight: 500;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+@media (max-width: 1368px) {
+  
+  .today p,
+  .tomorrow p,
+  .after-tomorrow p {
+    color: white;
+    font-weight: 500;
+    font-size: 1.5rem;
+  }
+
+  .today .weather-info p {
+    margin-bottom: 0.5rem;
+  }
+
+  .degrees {
+    font-size: 1.8rem;
+    margin-bottom: 1.6rem;
+  }
+  
+  .weather-main {
+    font-size: 1.5rem;
+  }
+
+  .weather-desc div {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 414px) {
+
+  .spinner {
+    display: none;
+  }
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .search-results.show{
+    overflow-y: scroll;
+    height: 7rem;
+    top: 5rem;
+  }
+
+  .list-item{
+    padding-bottom: 1rem;
+  }
+
+  .input-container svg {
+    width: 5rem;
+  }
+
+  .city-input {
+    padding: 0.5rem;
+    padding-left: 0;
+    font-size: 1.5rem;
+  }
+
+  .today {
+    display: block;
+    height: 50vh;
+  }
+
+  .tomorrow {
+    height: 20vh;
+  }
+
+  .after-tomorrow, .weather-icon {
+    display: none;
+  }
+
 }

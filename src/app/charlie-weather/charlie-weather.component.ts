@@ -92,7 +92,6 @@ export class CharlieWeatherComponent implements OnInit {
 
 			this.weatherInfo = data
 			this.weatherType = (data.daily[0].weather[0].main)
-			// this.colorCalculation()
 
 			this.loading = false
 		} catch (error) {
