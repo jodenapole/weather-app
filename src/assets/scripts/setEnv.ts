@@ -1,14 +1,31 @@
-const { writeFile } = require('fs');
+const { writeFile, existsSync, mkdirSync } = require('fs');
 const { argv } = require('yargs');
 
 // read environment variables from .env file
 require('dotenv').config();
+
 // read the command line arguments passed with yargs
 const environment = argv.environment;
+
+// Providing path to the `environments` directory
+const envDirectory = './src/environments';
+
+// creates the `environments` directory if it does not exist
+if (!existsSync(envDirectory)) {
+  mkdirSync(envDirectory);
+}
+
+//creates the `environment.prod.ts` and `environment.ts` file if it does not exist
+writeFileUsingFS('./src/environments/environment.prod.ts', '');
+writeFileUsingFS('./src/environments/environment.ts', '');
+
+
 const isProduction = environment === 'prod';
+
 const targetPath = isProduction
    ? `./src/environments/environment.prod.ts`
    : `./src/environments/environment.ts`;
+
 // we have access to our environment variables
 // in the process.env object thanks to dotenv
 const environmentFileContent = `
@@ -18,10 +35,14 @@ export const environment = {
    API_LOCATION: "${process.env.LOCATION_API_KEY}"
 };
 `;
-// write the content to the respective file
-writeFile(targetPath, environmentFileContent, (err: any) => {
-   if (err) {
-      console.log(err);
-   }
-   console.log(`Wrote variables to ${targetPath}`);
-});
+
+function writeFileUsingFS(targetPath: any, environmentFileContent:any) {
+   writeFile(targetPath, environmentFileContent, function (err:any) {
+     if (err) {
+       console.log(err);
+     }
+     if (environmentFileContent !== '') {
+       console.log(`wrote variables to ${targetPath}`);
+     }
+   });
+ }
