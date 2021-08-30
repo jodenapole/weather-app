@@ -31,9 +31,9 @@
                     <div (click)="changeTempUnit()" class="degrees">{{temperatureUnit ? temperatureTodayF + 'ºF': temperatureTodayC + 'ºC'}}</div>
                     <div class="weather-main">{{weatherType}}</div>
                     <div class="weather-desc">
-                        <div>Vento: {{weatherInfo.daily[0].wind_speed}}</div>
-                        <div>Humidade: {{weatherInfo.daily[0].humidity}}%</div>
-                        <div>Pressão: {{weatherInfo.daily[0].pressure}}hPA</div>
+                        <div>Vento: {{weatherInfo.wind_speed}}</div>
+                        <div>Humidade: {{weatherInfo.humidity}}%</div>
+                        <div>Pressão: {{weatherInfo.pressure}}hPA</div>
                     </div>
                 </div>
             </div>
