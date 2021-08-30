@@ -7,6 +7,17 @@ require('dotenv').config();
 // read the command line arguments passed with yargs
 const environment = argv.environment;
 
+function writeFileUsingFS(targetPath: any, environmentFileContent:any) {
+  writeFile(targetPath, environmentFileContent, function (err:any) {
+    if (err) {
+      console.log(err);
+    }
+    if (environmentFileContent !== '') {
+      console.log(`wrote variables to ${targetPath}`);
+    }
+  });
+}
+
 // Providing path to the `environments` directory
 const envDirectory = './src/environments';
 
@@ -36,13 +47,4 @@ export const environment = {
 };
 `;
 
-function writeFileUsingFS(targetPath: any, environmentFileContent:any) {
-   writeFile(targetPath, environmentFileContent, function (err:any) {
-     if (err) {
-       console.log(err);
-     }
-     if (environmentFileContent !== '') {
-       console.log(`wrote variables to ${targetPath}`);
-     }
-   });
- }
+writeFileUsingFS(targetPath, environmentFileContent);
