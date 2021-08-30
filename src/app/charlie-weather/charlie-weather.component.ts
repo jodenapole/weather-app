@@ -128,8 +128,6 @@ export class CharlieWeatherComponent implements OnInit {
 	}
 
 	async getForwardLocation(cityName: string): Promise<{ lat: number; lon: number;} | undefined>{
-		let apikey = 'c63386b4f77e46de817bdf94f552cddf'
-	
 		try {
 			const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${cityName}&key=${this.apiLocation}`)
 	
@@ -155,7 +153,6 @@ export class CharlieWeatherComponent implements OnInit {
 
 	async getReverseLocation(initLat: number, initLon: number){
 		try {
-			let apikey = 'c63386b4f77e46de817bdf94f552cddf'
 			const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${initLat}+${initLon}&key=${this.apiLocation}`)
 
 			const data = await response.json()
