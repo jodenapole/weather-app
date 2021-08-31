@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { FormGroup, FormControl } from '@angular/forms'
-import { environment } from '../../environments/environment'
+import { WeatherService } from '../shared/services/get-weather.service'
+import { LocationService } from '../shared/services/get-location.service'
+import { WeatherModel } from '../shared/models/response-weather.model'
 
 @Component({
   selector: 'app-charlie-weather',
@@ -18,11 +20,7 @@ export class CharlieWeatherComponent implements OnInit {
     });
 
 	// Weather API related variables
-	weatherInfo!: {
-		wind_speed: number,
-		humidity: number,
-		pressure: number
-	};
+	weatherInfo!: WeatherModel;
 	temperatureTodayC!: number;
 	temperatureTomorrowC!: number;
 	temperatureDayAfterTomorrowC!: number;
@@ -53,16 +51,13 @@ export class CharlieWeatherComponent implements OnInit {
 	 */ 
 	color!: string;
 
-	// Holds api key
-	apiWeather!: string
-	apiLocation!: string
 
     get cityInput() { return this.cityInputForm.get('cityInput'); }
 
-	constructor() {
-		this.apiWeather = environment.API_WEATHER
-		this.apiLocation = environment.API_LOCATION
-	}
+	constructor(
+		private weatherService: WeatherService,
+		private locationService: LocationService
+	) {}
 
 	ngOnInit(): void{
 		this.cityInputSubscription()
@@ -122,21 +117,19 @@ export class CharlieWeatherComponent implements OnInit {
 	 * Gets the weather based on latitude and longitude. Units are in metric system.
 	 */
 	async getWeather(lat: number, lon: number) {
-		try {
-			const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely,alerts&units=metric&lang=pt_br&appid=${this.apiWeather}`)
-			const data = await response.json()
+			const data = await this.weatherService.getWeather(lat, lon)
 
 			this.temperatureTodayC = Math.round(data.daily[0].temp.day)
 			this.temperatureTomorrowC = Math.round(data.daily[1].temp.day)
 			this.temperatureDayAfterTomorrowC = Math.round(data.daily[2].temp.day)
 
 			this.weatherInfo = data.daily[0]
-			this.weatherType = (data.daily[0].weather[0].main)
+			this.weatherType = data.daily[0].weather[0].main
+
+			// console.log('weather info: ', this.weatherInfo)
+			
 
 			this.loading = false
-		} catch (error) {
-			console.log(error)
-		}
 	}
 
 	/**
@@ -154,13 +147,15 @@ export class CharlieWeatherComponent implements OnInit {
 		if (temperature > 15) {
 			a = -2.5
 			b = 100
+			let linFunction = (a * temperature + b)
+			return `hsl(${linFunction > 42 ? 42 : linFunction }, 75%, 50%)`
 		} else {
 			a = 2.66
 			b = 200
+			let linFunction = (a * temperature + b)
+			return `hsl(${linFunction < 180 ? 180 : linFunction }, 75%, 50%)`
 		}
 		
-		let linFunction = (a * temperature + b)
-		return `hsl(${linFunction }, 75%, 50%)`
 	}
 
 	/**
@@ -179,9 +174,7 @@ export class CharlieWeatherComponent implements OnInit {
 	 */
 	async getForwardLocation(cityName: string): Promise<{ lat: number; lon: number;} | undefined>{
 		try {
-			const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${cityName}&key=${this.apiLocation}`)
-	
-			const data = await response.json()
+			const data = await this.locationService.getForwardLocation(cityName)
 			
 			if (data.results.length == 0){
 				/**
@@ -209,9 +202,7 @@ export class CharlieWeatherComponent implements OnInit {
 	 */
 	async getReverseLocation(initLat: number, initLon: number){
 		try {
-			const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${initLat}+${initLon}&key=${this.apiLocation}`)
-
-			const data = await response.json()
+			const data = await this.locationService.getReverseLocation(initLat, initLon)
 
 			/**
 			 * Here we're not emitting an event to the subscribe
