@@ -8,6 +8,8 @@ O Hurb Weather é o MVP de uma aplicação de previsão do tempo. Contém inform
 - Typescript 4.3.5
 - Visual Studio Code (IDE)
 - Docker
+- Jasmine
+- Karma
 ​
 ​
 ## Git Clone
