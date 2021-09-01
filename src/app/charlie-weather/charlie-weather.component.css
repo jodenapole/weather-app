@@ -80,7 +80,7 @@
   display: grid;
   grid-template-columns: 4fr 3fr;
   opacity: 0.9;
-  padding: 1rem;
+  padding: 0.2rem 1rem 1rem 1rem;
 }
 
 .today p,
@@ -93,10 +93,6 @@
 
 .today {
   background: #565656;
-}
-
-.today svg {
-  justify-self: center;
 }
 
 .today .weather-info p {
@@ -126,8 +122,15 @@
   margin-bottom: 2rem;
 }
 
+.weather-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .weather-icon img {
-  width: 85%;
+  padding-top: 0.5rem;
+  width: 60%;
 }
 
 .weather-desc div {
@@ -137,6 +140,16 @@
 }
 
 @media (max-width: 1368px) {
+
+  .input-container svg {
+    width: 7rem;
+  }
+
+  .city-input {
+    padding: 0.5rem;
+    padding-left: 0;
+    font-size: 3rem;
+  }
   
   .today p,
   .tomorrow p,
@@ -157,6 +170,11 @@
   
   .weather-main {
     font-size: 1.5rem;
+  }
+
+  .weather-icon img {
+    width: 60%;
+    padding-top: 0.5rem;
   }
 
   .weather-desc div {
@@ -198,11 +216,11 @@
 
   .today {
     display: block;
-    height: 50vh;
+    min-height: 50vh;
   }
 
   .tomorrow {
-    height: 20vh;
+    min-height: 20vh;
   }
 
   .after-tomorrow, .weather-icon {

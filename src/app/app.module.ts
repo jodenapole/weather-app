@@ -9,19 +9,19 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CharlieWeatherComponent,
-    LoadingSpinnerComponent,
+    declarations : [
+        AppComponent,
+        CharlieWeatherComponent,
+        LoadingSpinnerComponent
 
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    ],
+    imports : [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CommonModule
+    ],
+    providers : [],
+    bootstrap : [AppComponent]
 })
 export class AppModule { }
