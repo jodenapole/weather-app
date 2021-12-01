@@ -1,6 +1,6 @@
 ## Sobre
 ​
-O Hurb Weather é o MVP de uma aplicação de previsão do tempo. Contém informações atualizadas sobre o tempo de hoje e dois dias no futuro.
+Este é MVP de uma aplicação de previsão do tempo. Contém informações atualizadas sobre o tempo de hoje e dois dias no futuro.
 ​
 ## Tecnologias
 ​
